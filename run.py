@@ -91,7 +91,7 @@ def get_profile():
     return jsonify(profile=user_data)
 
 """ USER LOGOUT ENPOINT"""
-@app.route('/api/logout', methods=['POST'])
+@app.route('/logout', methods=['POST'])
 def logout():
     session.pop('user_id', None)
     return jsonify(message="Logged out successfully!")
@@ -153,7 +153,7 @@ def get_issues():
     return jsonify(issues=output)
 
 """ UPDATE ISSUE STATUS ENDPOINT """
-@app.route('/api/issues/<int:issue_id>/status', methods=['PUT'])
+@app.route('/issues/<int:issue_id>/status', methods=['PUT'])
 def update_issue_status(issue_id):
     data = request.json
     new_status = data.get('status')
