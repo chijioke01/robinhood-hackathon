@@ -176,6 +176,17 @@ def update_issue_status(issue_id):
     return jsonify(message="Issue status updated successfully!")
 ##########################################################################################
 
+"""ERROR HANDLING """
+##########################################################################################
+@app.errorhandler(404)
+def not_found_error(error):
+    return jsonify(message="Resource not found."), 404
+
+
+@app.errorhandler(500)
+def internal_error(error):
+    db.session.rollback()  # Rollback the session in case of database errors
+    return jsonify(message="An internal error occurred."), 500
 
 if __name__ == "__main__":
     app.run(debug=True)
