@@ -1,4 +1,6 @@
-from run import db
+from extensions import db  # Import db from extensions
+# from extensions import db  # Import db from extensions
+
 
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
