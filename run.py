@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, session, render_template, redirect, url_for
+from flask import Flask, request, jsonify, session, flash, render_template, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import User, Issue
 from extensions import db  # Import db from extensions
@@ -20,6 +20,16 @@ def login_page():
 def signup_page():
     return render_template('signup.html')
 
+@app.route('/passError')
+def passError():
+    flash("Passwords don't match!") 
+    return render_template('error/passError.html')
+
+@app.route('/userError')
+def userError():
+    flash("Username doesn't exist, register user!!") 
+    return render_template('error/passError.html')
+
 
 """ USER MANAGEMENTS ENDPOINTS """
 ##########################################################################################
@@ -38,7 +48,7 @@ def register():
 
     #validate that the password is equal to confirmed pass!
     if password != confirm_password:
-        return jsonify(message="Passwords dont match!"), 400
+        return redirect(url_for('passError'))
     
     # Validate the received data
     if not data or not name or not email or not password:
@@ -75,7 +85,7 @@ def login():
     user = User.query.filter_by(email=email).first()
 
     if not user:
-        return jsonify(message="User not found!"), 404
+        return redirect(url_for('userError'))
 
     if not check_password_hash(user.password, password):
         return jsonify(message="Incorrect password!"), 401
