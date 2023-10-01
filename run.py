@@ -118,9 +118,13 @@ def report_issue():
     # Get the uploaded photo (if any)
     photo = request.files.get('photo')
     photo_url = ''  # Placeholder. You might want to save the photo and then store the URL here.
-    
+
     # Assuming the status is always set to 'open' when reported
     issue_status = 'open'
+
+    # Extract latitude and longitude from the form
+    latitude = float(request.form.get('latitude'))
+    longitude = float(request.form.get('longitude'))
 
     if not issue_type or not location:
         return jsonify(message="Issue type and location are required!"), 400
@@ -132,10 +136,11 @@ def report_issue():
 
     new_issue = Issue(
         user_id=session['user_id'],
-        # user_id ="k",
         issue_type=issue_type,
         photo_url=photo_url,
         location=location,
+        latitude=latitude,
+        longitude=longitude,
         issue_status=issue_status,
         date_reported=datetime.utcnow()
     )
@@ -144,6 +149,7 @@ def report_issue():
     db.session.commit()
 
     return jsonify(message="Issue reported successfully!", issue_id=new_issue.issue_id), 201
+
 
 
 """ GET ISSUES ENPOINT """

@@ -22,5 +22,7 @@ class Issue(db.Model):
     issue_type = db.Column(db.String(20), nullable=False)
     photo_url = db.Column(db.String(256), nullable=True)
     location = db.Column(db.String(120), nullable=False)
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
     issue_status = db.Column(db.String(120), nullable=False)
     date_reported = db.Column(db.DateTime, nullable=False)

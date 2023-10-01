@@ -124,7 +124,6 @@
     // This is a basic example; you can adjust based on your API structure.
     $(document).ready(function() {
         $.get('/api/issues', function(data) {
-            // Assuming 'data' is a list of issue objects
             data.issues.forEach(function(issue) {
                 var row = `
                     <tr>
