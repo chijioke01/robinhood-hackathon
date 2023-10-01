@@ -251,15 +251,27 @@ def logout():
     return render_template('logout.html')
 
 
-@app.route('/leaderboard', methods=['GET'])
-def leaderboard():
-    neighborhoods = (
-        db.session.query(User.zip_code.label('name'), func.sum(User.total_points).label('total_points'))
-        .group_by(User.zip_code)
-        .order_by(func.sum(User.total_points).desc())
-        .all()
-    )
+# @app.route('/leaderboard', methods=['GET'])
+# def leaderboard():
+#     neighborhoods = (
+#         db.session.query(User.zip_code.label('name'), func.sum(User.total_points).label('total_points'))
+#         .group_by(User.zip_code)
+#         .order_by(func.sum(User.total_points).desc())
+#         .all()
+#     )
 
+#     return render_template('leaderboard.html', neighborhoods=neighborhoods)
+
+@app.route('/leaderboard')
+def leaderboard():
+    neighborhoods = [
+        {'name': 'Pineview', 'damage_reports': 2, 'cleanliness_rank': 1, 'improvement_rank': 4},
+        {'name': 'Oakdale', 'damage_reports': 5, 'cleanliness_rank': 2, 'improvement_rank': 1},
+        {'name': 'Maplewood', 'damage_reports': 7, 'cleanliness_rank': 3, 'improvement_rank': 2},
+        {'name': 'Cedar Grove', 'damage_reports': 10, 'cleanliness_rank': 4, 'improvement_rank': 6},
+        {'name': 'Elmwood', 'damage_reports': 12, 'cleanliness_rank': 5, 'improvement_rank': 3},
+        {'name': 'Birchwood', 'damage_reports': 15, 'cleanliness_rank': 6, 'improvement_rank': 5}
+    ]
     return render_template('leaderboard.html', neighborhoods=neighborhoods)
 
 

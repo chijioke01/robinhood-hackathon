@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Neighborhood Cleanliness Leaderboard</title>
+    <style>
+        body {
+            background-color: #e6ffe6; /* Light Green Background */
+            color: #009900; /* Dark Green Text */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #33cc33; /* Medium Green Border */
+        }
+        th {
+            background-color: #33cc33; /* Medium Green Header Background */
+            color: #ffffff; /* White Text for Header */
+        }
+        tr:hover {
+            background-color: #c4ecc4; /* Lighter Green for Hover */
+        }
+        h1 {
+            color: #009900; /* Dark Green for Heading */
+        }
+    </style>
+</head>
+<body>
+    <h1>Neighborhood Cleanliness Leaderboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Neighborhood</th>
+                <th>Damage Reports</th>
+                <th>Cleanliness Rank</th>
+                <th>Improvement Rank</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for neighborhood in neighborhoods %}
+                <tr>
+                    <td>{{ neighborhood.name }}</td>
+                    <td>{{ neighborhood.damage_reports }}</td>
+                    <td>{{ neighborhood.cleanliness_rank }}</td>
+                    <td>{{ neighborhood.improvement_rank }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
