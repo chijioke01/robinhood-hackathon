@@ -1,113 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Report Issue</title>
     <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/footer.css') }}"
+    />
+  </head>
 
-<body>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+      <a class="navbar-brand" href="#">IssueReporter</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard">Dashboard</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Report Issue</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/map">Map</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/onboarding">Tutorial</a>
+          </li>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-success">
-  <a class="navbar-brand" href="#">IssueReporter</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/dashboard">Dashboard</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Report Issue</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/map">Map</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/onboarding">Tutorial</a>
-      </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/leaderboard">Leaderboard</a>
+          </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="/leaderboard">Leaderboard</a>
-      </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-      <li class="nav-item">
-        <a class="nav-link" href="/logout">Logout</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-<!-- Issue Reporting Form -->
-<div class="container mt-5">
-    <h3>Report an Issue</h3>
-    <form action="/report" method="post" enctype="multipart/form-data">
+    <!-- Issue Reporting Form -->
+    <div class="container mt-5">
+      <h3>Report an Issue</h3>
+      <form action="/report" method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="issueType">Issue Type:</label>
-            <select class="form-control" id="issueType" name="issue_type" required>
-                <option value="">Select Issue Type</option>
-                <option value="pothole">Pothole</option>
-                <option value="graffiti">Graffiti</option>
-                <option value="streetlight">Broken Streetlight</option>
-                <option value="Sidewalk">Broken Sidewalk</option>
-                <option value="abandoned_vechicle">Abandoned Vehicle</option>
-                <option value="sewage">Sewage Overflow</option>
-                <option value="stray_animals">Stray Animals</option>
-                <option value="other">Other</option>
-            </select>
+          <label for="issueType">Issue Type:</label>
+          <select
+            class="form-control"
+            id="issueType"
+            name="issue_type"
+            required
+          >
+            <option value="">Select Issue Type</option>
+            <option value="pothole">Pothole</option>
+            <option value="graffiti">Graffiti</option>
+            <option value="streetlight">Broken Streetlight</option>
+            <option value="Sidewalk">Broken Sidewalk</option>
+            <option value="abandoned_vechicle">Abandoned Vehicle</option>
+            <option value="sewage">Sewage Overflow</option>
+            <option value="stray_animals">Stray Animals</option>
+            <option value="other">Other</option>
+          </select>
         </div>
         <!-- This is the additional textbox that will appear when 'Other' is selected -->
-        <div class="form-group" id="otherIssueTypeDiv" style="display: none;">
-            <label for="otherIssueType">Specify Issue:</label>
-            <input type="text" class="form-control" id="otherIssueType" name="other_issue_type" placeholder= "20 character limit" maxlength="20">
+        <div class="form-group" id="otherIssueTypeDiv" style="display: none">
+          <label for="otherIssueType">Specify Issue:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="otherIssueType"
+            name="other_issue_type"
+            placeholder="20 character limit"
+            maxlength="20"
+          />
         </div>
         <div class="form-group">
-            <label for="photo">Upload Photo:</label>
-            <input type="file" class="form-control" id="photo" name="photo">
+          <label for="photo">Upload Photo:</label>
+          <input type="file" class="form-control" id="photo" name="photo" />
         </div>
         <div class="form-group">
-            <label for="location">Location:</label>
-            <input type="text" class="form-control" id="location" name="location" placeholder="Enter Address" required>
+          <label for="location">Location:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="location"
+            name="location"
+            placeholder="Enter Address"
+            required
+          />
         </div>
 
-        <input type="hidden" id="latitude" name="latitude">
-        <input type="hidden" id="longitude" name="longitude">
+        <input type="hidden" id="latitude" name="latitude" />
+        <input type="hidden" id="longitude" name="longitude" />
 
         <button type="submit" class="btn btn-primary">Submit Issue</button>
-        <a href="mailto:XXX@gov.us?subject=A%20Local%20Sabotage%20Report&body=Hi%20city%20councillor">
-          <button type="button">Send Email</button>
+        <a
+          href="mailto:XXX@gov.us?subject=A%20Local%20Sabotage%20Report&body=Hi%20city%20councillor"
+        >
+          <button type="button" class="btn btn-outline-success">
+            Send Email
+          </button>
         </a>
-    </form>
-</div>
+      </form>
+    </div>
 
-<!-- Optional Footer -->
-<footer class="footer mt-auto py-3 bg-success text-white">
-  <div class="container">
-    <span>© 2023 IssueReporter</span>
-  </div>
-</footer>
+    <!-- Optional Footer -->
+    <footer class="footer mt-auto py-3 bg-success text-white">
+      <div class="container">
+        <span>© 2023 IssueReporter</span>
+      </div>
+    </footer>
 
-<!-- Bootstrap JS -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $("#issueType").change(function() {
-            // Check if 'Other' option is selected
-            if ($(this).val() == "other") {
-                $("#otherIssueTypeDiv").show();
-            } else {
-                $("#otherIssueTypeDiv").hide();
-            }
+    <!-- Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#issueType").change(function () {
+          // Check if 'Other' option is selected
+          if ($(this).val() == "other") {
+            $("#otherIssueTypeDiv").show();
+          } else {
+            $("#otherIssueTypeDiv").hide();
+          }
         });
-    });
-</script>
-<script src="\..\static\js\geolocation.js"></script>
-</body>
+      });
+    </script>
+    <script src="\..\static\js\geolocation.js"></script>
+  </body>
 </html>
