@@ -107,11 +107,11 @@ def get_profile():
 
     return jsonify(profile=user_data)
 
-""" USER LOGOUT ENPOINT"""
-@app.route('/logout', methods=['POST'])
-def logout():
-    session.pop('user_id', None)
-    return jsonify(message="Logged out successfully!")
+# """ USER LOGOUT ENPOINT"""
+# @app.route('/logout', methods=['POST'])
+# def logout():
+#     session.pop('user_id', None)
+#     return jsonify(message="Logged out successfully!")
 
 ##########################################################################################
 
@@ -241,6 +241,13 @@ def onboarding():
 @app.route('/map')
 def map_view():
     return render_template('map.html')
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    session.pop('user_id', None)
+    if request.method == 'POST':
+        return jsonify(message="Logged out successfully!")
+    return render_template('logout.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
