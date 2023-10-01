@@ -9,6 +9,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
 
 </head>
 
@@ -49,8 +50,21 @@
 
 <!-- User Info -->
 <div class="container mt-5">
-    <h1>Welcome {Name}</h1>
-    <h2>Current Points: {User's Points}</h2>
+    <h1>Welcome Robin!</h1>
+    <h2>Current Points: 20</h2>
+    <script>
+      function generateRandomNumber() {
+          // Generate a random number between 1 and 100
+          var randomNumber = Math.floor(Math.random() * 100) + 1;
+          
+          // Display the random number
+          document.getElementById('randomNumberDisplay').innerText = "Random Number: " + randomNumber;
+      }
+  
+      // Call the function immediately to display a random number when the page loads
+      generateRandomNumber();
+  </script>
+  
    
 </div>
 

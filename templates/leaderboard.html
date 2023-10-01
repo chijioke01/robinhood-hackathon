@@ -1,66 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Dashboard</title>
     <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/footer.css') }}"
+    />
+  </head>
 
-</head>
+  <!-- <body style="background-color: #e6ffe6;"> -->
 
-<!-- <body style="background-color: #e6ffe6;"> -->
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <a class="navbar-brand" href="#">Dashboard</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/report">Report Issue</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/map">Map</a>
+        </li>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-success">
-  <a class="navbar-brand" href="#">Dashboard</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item ">
-        <a class="nav-link" href="/dashboard">Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/report">Report Issue</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/map">Map</a>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/onboarding">Tutorial</a>
+        </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="/onboarding">Tutorial</a>
-      </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/leaderboard">Leaderboard</a>
+        </li>
 
-      <li class="nav-item active">
-        <a class="nav-link" href="/leaderboard">Leaderboard</a>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-      <li class="nav-item">
-        <a class="nav-link" href="/logout">Logout</a>
-      </li>
-
-    </ul>
-  </div>
-</nav>
-
-<div class="container mt-5">
+  <div class="container mt-5">
     <h2>Neighborhood Leaderboard</h2>
     <table class="table table-striped">
-        <thead class="bg-success text-white">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Zip Code</th>
-                <th scope="col">Total Points</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- The neighborhoods data will be populated here using Flask's templating engine -->
-            <!-- {% for neighborhood in neighborhoods %}
+      <thead class="bg-success text-white">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Zip Code</th>
+          <th scope="col">Total Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- The neighborhoods data will be populated here using Flask's templating engine -->
+        <!-- {% for neighborhood in neighborhoods %}
                 <tr>
                     <th scope="row">{{ loop.index }}</th>
                     <td>{{ neighborhood.name }}</td>
@@ -68,38 +83,35 @@
                 </tr>
             {% endfor %} -->
 
-            <tr>
-                <th scope="row">1</th>
-                <td>95120</td>
-                <td>150</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>95121</td>
-                <td>130</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>95122</td>
-                <td>120</td>
-            </tr>
-
-
-        </tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>95120</td>
+          <td>150</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>95121</td>
+          <td>130</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>95122</td>
+          <td>120</td>
+        </tr>
+      </tbody>
     </table>
-</div>
+  </div>
 
-<!-- Optional Footer -->
-<footer class="footer mt-auto py-3 bg-success text-white">
+  <!-- Optional Footer -->
+  <footer class="footer mt-auto py-3 bg-success text-white">
     <div class="container">
       <span>© 2023 Leaderboard</span>
     </div>
   </footer>
-  
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>
