@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from models import User, Issue
 from extensions import db  # Import db from extensions
 from datetime import datetime
+from sqlalchemy import func
 
 
 app = Flask(__name__)
@@ -248,6 +249,19 @@ def logout():
     if request.method == 'POST':
         return jsonify(message="Logged out successfully!")
     return render_template('logout.html')
+
+
+@app.route('/leaderboard', methods=['GET'])
+def leaderboard():
+    neighborhoods = (
+        db.session.query(User.zip_code.label('name'), func.sum(User.total_points).label('total_points'))
+        .group_by(User.zip_code)
+        .order_by(func.sum(User.total_points).desc())
+        .all()
+    )
+
+    return render_template('leaderboard.html', neighborhoods=neighborhoods)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
