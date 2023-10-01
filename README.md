@@ -67,7 +67,7 @@ After setting up, navigate to `http://localhost:5000` on your web browser. Regis
 - View all reported issues on a map.
 - Leaderboard to rank neighborhoods based on the number of reported issues.
 
-## System Diagrmas 
+## System Diagrams 
 *To Be Added*
 
 ## Screenshots/Demo
@@ -78,14 +78,14 @@ After setting up, navigate to `http://localhost:5000` on your web browser. Regis
 - SQLite
 - Bootstrap
 - JavaScript
-- HTM & CSS
+- HTML & CSS
 
 ## Contact
 If you have any questions, concerns, or feedback, please contact:
 
 - Chijioke: [chijioke-01]
-- Yash:[yash-dubs] 
-- Lee:[leemabhena]
+- Yash: [yash-dubs] 
+- Lee: [leemabhena]
 - Xiaoyi: [Xiaoyi-Lin]
 - John : [JohnExantus]
 
