@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Robinhoood</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        font-family: "Montserrat", sans-serif;
+      }
+      .map__wrapper {
+        padding: 1rem;
+        background-color: #e6ffe6;
+      }
+
+      .map__headings {
+        font-size: 1rem;
+        font-weight: bold;
+        color: green;
+      }
+      .map__custom_location {
+        border: 1px solid green;
+        display: flex;
+        align-items: center;
+        border-radius: 3rem;
+        margin-top: 1rem;
+        padding: 1px;
+      }
+      .map__custom_location input {
+        border: none;
+        outline: none;
+        flex: 1;
+        font-size: 0.9rem;
+        padding-left: 8px;
+        background-color: transparent;
+        color: green;
+      }
+
+      .map__custom_location input::placeholder {
+        color: green;
+        font-weight: 300;
+      }
+
+      .map__custom_location span {
+        display: block;
+        background-color: greenyellow;
+        overflow: hidden;
+        padding: 4px 8px;
+        border-radius: 0 3rem 3rem 0;
+        cursor: pointer;
+      }
+      .map__detect_location {
+        font-style: italic;
+        font-size: 0.9rem;
+        color: goldenrod;
+        margin-top: 1rem;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      .map__issue-status {
+        display: flex;
+        margin-top: 1rem;
+        border: 1px solid green;
+        border-radius: 3rem;
+        padding: 2px;
+        color: green;
+      }
+      .map__issue_item {
+        flex: 1;
+        padding: 0.2rem;
+        text-align: center;
+        cursor: pointer;
+        font-size: 0.9rem;
+        padding: 3px;
+        transition: all ease-in-out 1s;
+        color: green;
+      }
+
+      .map__active {
+        background-color: greenyellow;
+        border-radius: 3rem;
+      }
+
+      .map__select {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        border: 1px solid green;
+        border-radius: 3rem;
+        padding: 5px;
+        outline: none;
+        background-color: transparent;
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <a class="navbar-brand" href="#">Map View </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/report">Report Issue</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/map">Map</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/onboarding">Tutorial</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+    <section class="map__wrapper">
+      <div class="fluid-container">
+        <div class="row">
+          <div class="col-md-4">
+            <h3 class="map__headings">
+              <i class="fa-solid fa-location-dot"></i>
+              Choose your location
+            </h3>
+            <div class="map__custom_location">
+              <input type="text" placeholder="e.g Brooklyn, Newyork" />
+              <span><i class="fa-solid fa-magnifying-glass"></i></span>
+            </div>
+            <p class="map__detect_location">
+              <i class="fa-solid fa-magnifying-glass-location"></i>
+              <span class="detect__location">detect location</span>
+            </p>
+          </div>
+          <div class="col-md-4">
+            <h3 class="map__headings">
+              <i class="fa-solid fa-arrow-up-wide-short"></i>
+              Filter by issue status
+            </h3>
+            <div class="map__issue-status">
+              <div class="map__issue_item">Open</div>
+              <div class="map__issue_item">Review</div>
+              <div class="map__issue_item">Resolved</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h3 class="map__headings">
+              <i class="fa-solid fa-filter"></i>
+              Filter by issue name
+            </h3>
+            <select class="map__select" name="" id="">
+              <option value="">Select an issue</option>
+              <option value="grafitti">Grafitti</option>
+              <option value="pothole">Pothole</option>
+              <option value="streetlight">Broken Streetlight</option>
+              <option value="sidewalk">Broken Sidewalk</option>
+              <option value="vehicle">Abandoned Vehicle</option>
+              <option value="animals">Stray Animals</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="map" style="height: 80vh"></div>
+
+    <script src="\..\static\js\map.js"></script>
+
+    <script>
+      const issue_items = document.querySelectorAll(".map__issue_item");
+
+      issue_items.forEach((issue_item) => {
+        issue_item.addEventListener("click", (event) => {
+          // Remove the "map__item" class from all issue items
+          issue_items.forEach((item) => {
+            item.classList.remove("map__active");
+          });
+
+          // Add the "map__item" class to the clicked issue item
+          event.target.classList.add("map__active");
+        });
+      });
+    </script>
+  </body>
+</html>
