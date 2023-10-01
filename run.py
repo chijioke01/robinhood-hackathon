@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, session
+from flask import Flask, request, jsonify, session, render_template, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import User, Issue
 from extensions import db  # Import db from extensions
@@ -41,7 +41,9 @@ def register():
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify(message="User registered successfully!"), 201
+    # return jsonify(message="User registered successfully!"), 201
+    return redirect(url_for('onboarding'))
+
 
 
 """ USER LOGIN ENPOINT """
@@ -63,7 +65,9 @@ def login():
         return jsonify(message="Incorrect password!"), 401
 
     session['user_id'] = user.user_id
-    return jsonify(message="Login successful!")
+    return redirect(url_for('dashboard'))
+
+    # return jsonify(message="Login successful!")
 
 """USER PROFILE ENDPOINT """
 @app.route('/profile', methods=['GET'])
@@ -107,18 +111,28 @@ def report_issue():
     if 'user_id' not in session:
         return jsonify(message="Please log in to report an issue."), 401
 
-    data = request.json
-    issue_type = data.get('issue_type')
-    photo_url = data.get('photo_url', '')  # Optional field
-    location = data.get('location')
+    # Get form data
+    issue_type = request.form.get('issue_type')
+    location = request.form.get('location')
+
+    # Get the uploaded photo (if any)
+    photo = request.files.get('photo')
+    photo_url = ''  # Placeholder. You might want to save the photo and then store the URL here.
+    
     # Assuming the status is always set to 'open' when reported
     issue_status = 'open'
 
     if not issue_type or not location:
         return jsonify(message="Issue type and location are required!"), 400
 
+    # If photo is uploaded, you can save it and set the photo_url accordingly
+    if photo:
+        # Save the photo or upload it to a cloud storage and get the URL
+        pass
+
     new_issue = Issue(
         user_id=session['user_id'],
+        # user_id ="k",
         issue_type=issue_type,
         photo_url=photo_url,
         location=location,
@@ -131,8 +145,8 @@ def report_issue():
 
     return jsonify(message="Issue reported successfully!", issue_id=new_issue.issue_id), 201
 
-""" GET ISSUES ENPOINT """
 
+""" GET ISSUES ENPOINT """
 @app.route('/issues', methods=['GET'])
 def get_issues():
     issues = Issue.query.all()
@@ -187,6 +201,27 @@ def not_found_error(error):
 def internal_error(error):
     db.session.rollback()  # Rollback the session in case of database errors
     return jsonify(message="An internal error occurred."), 500
+##########################################################################################
+
+"""FRONT END """
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
+
+@app.route('/report', methods=['GET', 'POST'])
+def report_form():
+    if request.method == 'POST':
+        # Handle the form submission logic here
+        pass
+    return render_template('issue_reporting.html')
+
+
+@app.route('/onboarding')
+def onboarding():
+    return render_template('onboarding.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)
