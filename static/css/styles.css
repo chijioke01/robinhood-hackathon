@@ -1,0 +1,105 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #e6ffe6; /* Light Green */
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.logo {
+    width: 300px; /* Adjust as needed */
+    height: auto; /* Keeps the aspect ratio intact */
+    display: block;
+    margin: 0 auto; /* Centers the logo */
+    /*padding: 20px 0; /* Adds some space above and below the logo */
+}
+
+
+.title {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #009900; /* Green */
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: #33cc33; /* Lighter Green */
+    margin-bottom: 30px;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.signup-form input {
+    padding: 15px;
+    border: 2px solid #009900; /* Green */
+    border-radius: 8px;
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.signup-form input:focus {
+    border-color: #33cc33; /* Lighter Green */
+}
+
+.submit-btn {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 8px;
+    background-color: #009900; /* Green */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #33cc33; /* Lighter Green */
+}
+
+.image-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.social-good-img {
+    max-width: 300px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.register-link {
+    font-size: 1em;
+    color: #33cc33; /* Lighter Green */
+}
+
+.register-link a {
+    color: #009900; /* Green */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.register-link a:hover {
+    color: #33cc33; /* Lighter Green */
+}

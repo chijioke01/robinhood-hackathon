@@ -6,13 +6,18 @@ from datetime import datetime
 
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key_here'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db.init_app(app)
 
 
 @app.route('/')
-def index():
-    return "Hello, World!"
+def login_page():
+    return render_template('login.html')
+
+@app.route('/signup')
+def signup_page():
+    return render_template('signup.html')
 
 
 """ USER MANAGEMENTS ENDPOINTS """
@@ -20,36 +25,46 @@ def index():
 """USER REGISTER ENDPOINT """
 @app.route('/register', methods=['POST'])
 def register():
-    data = request.json
+    print(request.form)
+    data = request.form
+    name = data.get('name')
+    email = data.get('email')
+    password = data.get('password')
 
+    confirm_password = data.get('confPass')
+
+
+
+    #validate that the password is equal to confirmed pass!
+    if password != confirm_password:
+        return jsonify(message="Passwords dont match!"), 400
+    
     # Validate the received data
-    if not data or not data.get('name') or not data.get('email') or not data.get('password'):
+    if not data or not name or not email or not password:
         return jsonify(message="Name, email, and password are required!"), 400
 
     # Check if the email is already in use
-    existing_user = User.query.filter_by(email=data['email']).first()
+    existing_user = User.query.filter_by(email=email).first()
     if existing_user:
         return jsonify(message="Email is already in use!"), 400
 
     # Hash the password
-    hashed_password = generate_password_hash(data['password'], method='sha256')
+    hashed_password = generate_password_hash(password)
 
     # Create a new user
-    new_user = User(name=data['name'], email=data['email'], password=hashed_password)
+    new_user = User(name=name, email=email, password=hashed_password, zip_code=95120, total_points=0)
 
     # Add the user to the database
     db.session.add(new_user)
     db.session.commit()
 
-    # return jsonify(message="User registered successfully!"), 201
     return redirect(url_for('onboarding'))
-
 
 
 """ USER LOGIN ENPOINT """
 @app.route('/login', methods=['POST'])
 def login():
-    data = request.json
+    data = request.form
     email = data.get('email')
     password = data.get('password')
 
@@ -66,8 +81,6 @@ def login():
 
     session['user_id'] = user.user_id
     return redirect(url_for('dashboard'))
-
-    # return jsonify(message="Login successful!")
 
 """USER PROFILE ENDPOINT """
 @app.route('/profile', methods=['GET'])
@@ -118,7 +131,6 @@ def report_issue():
     # Get the uploaded photo (if any)
     photo = request.files.get('photo')
     photo_url = ''  # Placeholder. You might want to save the photo and then store the URL here.
-
     # Assuming the status is always set to 'open' when reported
     issue_status = 'open'
 
@@ -129,7 +141,6 @@ def report_issue():
     if not issue_type or not location:
         return jsonify(message="Issue type and location are required!"), 400
 
-    # If photo is uploaded, you can save it and set the photo_url accordingly
     if photo:
         # Save the photo or upload it to a cloud storage and get the URL
         pass
@@ -150,9 +161,8 @@ def report_issue():
 
     return jsonify(message="Issue reported successfully!", issue_id=new_issue.issue_id), 201
 
-
-
 """ GET ISSUES ENPOINT """
+
 @app.route('/issues', methods=['GET'])
 def get_issues():
     issues = Issue.query.all()
@@ -207,7 +217,7 @@ def not_found_error(error):
 def internal_error(error):
     db.session.rollback()  # Rollback the session in case of database errors
     return jsonify(message="An internal error occurred."), 500
-##########################################################################################
+
 
 """FRONT END """
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <section class="signup-section">
+        <div class="container">
+            <img src="https://blog.logomyway.com/wp-content/uploads/2022/02/robinhood-logo.png" alt="Robinhood Logo" class="logo">
+            <h1 class="title">Join our community!</h1>
+            <p class="subtitle">Make a difference. Report local issues and drive change.</p>
+
+            <form class="signup-form" id="signupForm" method="POST" action="/register">
+                <input type="text" id="name" name="name" placeholder="Your Name">
+                <input type="email" id="email" name="email" placeholder="Your Email">
+                <input type="password" id="password" name="password" placeholder="Password">
+                <input type="password" id="confPass" name="confPass" placeholder="Repeat your password">
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+
+            <p class="register-link">Have an account? <a href="/">Login</a></p>
+            
+        </div>
+    </section>
+</body>
+
+</html>
