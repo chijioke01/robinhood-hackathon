@@ -1,8 +1,8 @@
 # "The Robin Report" Robinhood Hackathon App
-{App name } is a mobile app that enables citizens to easily report local issues like potholes, broken lights, and graffiti directly to their city using their smartphone camera and GPS location tagging. 
-By engaging residents in identifying and reporting problems in their community, {App name} aims to strengthen accountability, collaboration between citizens and government, and overall quality of life. 
+The Robin Report is a mobile app that enables citizens to easily report local issues like potholes, broken lights, and graffiti directly to their city using their smartphone camera and GPS location tagging. 
+By engaging residents in identifying and reporting problems in their community, The Robin Report aims to strengthen accountability, collaboration between citizens and government, and overall quality of life. 
 The app makes participating fun with features like achievement badges and neighborhood leaderboards while allowing users to track the status of issues they submit. 
-With {App name}, it only takes a few taps on your phone to help improve your local area.
+With The Robin Report, it only takes a few taps on your phone to help improve your local area.
 
 ## Table of Contents
 - [Installation & Setup](#installation--setup)
